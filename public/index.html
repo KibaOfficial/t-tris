@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="T-tris: A fun Tetris game." />
+    <title>T-tris</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div id="game-container" role="main">
+      <canvas
+        id="game"
+        width="400"
+        height="600"
+        aria-label="Tetris game area"
+      ></canvas>
+      <div id="scoreboard" aria-labelledby="score">
+        <div id="score">SCORE: (XXXX)</div>
+        <div id="level">LEVEL: (XX)</div>
+        <div id="next">
+          NEXT:
+          <canvas id="next-piece" width="120" height="120"></canvas>
+        </div>
+        
+        <div id="info">INFO:</div>
+      </div>
+    </div>
+    <script type="module" src="../dist/t-tris.js"></script>
+  </body>
+</html>
