@@ -3,3 +3,6 @@ dist/
 
 #ignore modules
 node_modules
+
+#ignore backup files
+backup/

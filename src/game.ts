@@ -2,20 +2,20 @@
 // 
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
-
-import { BLOCK_SIZE, getGameInit, setGameInit, getGameRun, setPaused, isPaused, GRID_COLS, GRID_ROWS, GameCanvas } from "./constants.js";
+import { BLOCK_SIZE, getGameInit, setGameInit, getGameRun, isPaused, GRID_COLS, GRID_ROWS, GameCanvas } from "./constants.js";
 import { drawGrid, initGameField, renderNextPiece, updateLayer } from "./utils.js";
 import { InputManager } from "./input.js";
+import { AudioManager } from "./audio.js";
 import { Blocks } from "./blocks.js";
 import { ShapeType } from "./shapes.js";
 import { Vector2 } from "./vector.js";
 
 let currentShapeIndex = 0;
 const shapesArray = Object.values(ShapeType);
-const delayBetweenShapes = 1000
+const delayBetweenShapes = 1000;
 
-
-const inputManager = new InputManager();
+const audioManager = new AudioManager();
+const inputManager = new InputManager(audioManager);
 
 function initCanvas(): GameCanvas {
   const game = document.getElementById("game") as HTMLCanvasElement | null;
@@ -38,11 +38,13 @@ function initCanvas(): GameCanvas {
   return { game, gameCtx };
 }
 
-export function gameLoop() {
+export async function gameLoop() {
   if (!getGameInit()) {
     const { gameCtx } = initCanvas();
     initGameField(gameCtx);
     setGameInit(true);
+    await audioManager.initializeAudioContext();
+    await audioManager.playBackgroundMusic();
   }
 
   if (getGameRun() && !isPaused()) {

@@ -15,5 +15,5 @@
       "dom"
     ]
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*.ts"]
 }
