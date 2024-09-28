@@ -84,3 +84,20 @@ body {
   height: auto;
   filter: blur(1px) saturate(1.2) hue-rotate(15deg);
 }
+
+
+@media (max-width: 768px) {
+  #game-container {
+    flex-direction: column;
+  }
+
+  #scoreboard {
+    width: 100%;
+    max-width: none;
+  }
+
+  #next-piece {
+    width: 80px;
+    height: 80px;
+  }
+}

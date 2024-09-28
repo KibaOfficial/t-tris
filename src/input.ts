@@ -16,14 +16,21 @@ export class InputManager {
     document.addEventListener("keyup", (event) => {
       this.keys.delete(event.key);
     });
+    document.addEventListener("click", () => {
+      if (!this.audioManager.getIsMuted()) {
+        this.audioManager.playBackgroundMusic();
+      }
+    });
   }
 
   private onKeyDown(event: KeyboardEvent): void {
     if (event.key === "Escape") {
       setPaused(!isPaused());
-    }
-    if (!this.audioManager.getIsMuted()) {
-      this.audioManager.playBackgroundMusic();
+      if (isPaused()) {
+        this.audioManager.pauseBackgroundMusic();
+      } else {
+        this.audioManager.playBackgroundMusic();
+      }
     }
     this.keys.add(event.key.toLowerCase());
   }

@@ -8,7 +8,7 @@ let gameOver = false;
 let gameRun = true;
 let paused = false;
 
-export const GRID_ROWS = 16;
+export const GRID_ROWS = 20;
 export const GRID_COLS = 10;
 export const BLOCK_SIZE = 30;
 

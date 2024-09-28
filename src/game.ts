@@ -13,6 +13,7 @@ import { Vector2 } from "./vector.js";
 let currentShapeIndex = 0;
 const shapesArray = Object.values(ShapeType);
 const delayBetweenShapes = 1000;
+let gameCtx: CanvasRenderingContext2D | null = null;
 
 const audioManager = new AudioManager();
 const inputManager = new InputManager(audioManager);
@@ -27,30 +28,27 @@ function initCanvas(): GameCanvas {
   game.width = GRID_COLS * BLOCK_SIZE;
   game.height = GRID_ROWS * BLOCK_SIZE;
 
-  const gameCtx = game.getContext("2d");
+  const ctx = game.getContext("2d");
 
-  if (gameCtx === null) {
+  if (ctx === null) {
     throw new Error("game context not found");
   }
 
-  initGameField(gameCtx);
+  initGameField(ctx);
 
-  return { game, gameCtx };
+  return { game, gameCtx: ctx };
 }
 
 export async function gameLoop() {
   if (!getGameInit()) {
-    const { gameCtx } = initCanvas();
-    initGameField(gameCtx);
+    const canvasObj = initCanvas();
+    gameCtx = canvasObj.gameCtx;
     setGameInit(true);
     await audioManager.initializeAudioContext();
-    await audioManager.playBackgroundMusic();
   }
 
   if (getGameRun() && !isPaused()) {
-    const { gameCtx } = initCanvas();
-
-    updateLayer(gameCtx, (ctx) => {
+    updateLayer(gameCtx!, (ctx) => {
       drawGrid(ctx, GRID_COLS, GRID_ROWS);
     });
 
